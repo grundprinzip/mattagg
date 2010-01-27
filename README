@@ -9,7 +9,17 @@ at a given position ( col, row).
 How To Use?
 -----------
 
+1) compile the program using 'make'
+2) run the prorgam using the ./main data/generated_data_small.csv 10 10 data/generated_data_small_index.csv
 
+
+Aggregation Results
+-------------------
+
+When using the sample data the following results are corect:
+
+1) Complete aggregation: 503
+2) Agg by material number 0: 133
 
 
 Genrate Data
