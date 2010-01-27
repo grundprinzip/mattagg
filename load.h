@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "index.h"
+
 // For smart pointers and resource management
 #include <boost/shared_ptr.hpp>
 
@@ -30,6 +32,9 @@ class TableFactory
 public:
 
 	static TablePtr loadFile(std::string fn, size_t w, size_t h, ReadingType rt=ColRead);
+
+	static IndexPtr loadIndex(std::string fn);
+
 
 	static std::vector<std::string> split(std::string line, std::string sep);
 };

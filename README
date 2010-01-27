@@ -1,0 +1,40 @@
+Material Aggregation
+--------------------
+
+This is a small sample project to simulate diverse access patterns
+either on a column store or a row store. The most important class is
+the Table class. It provides simple methods to access a certain value
+at a given position ( col, row).
+
+How To Use?
+-----------
+
+
+
+
+Genrate Data
+-----------
+
+In the data subfolder is a generator script that will generate the
+necessary data to execute all tasks. The distribution of this data is
+close to real customer data. 
+
+To generate data you will need the following parameters:
+
+   - number of rows 
+   - number of distinct values ( defines the number of distinct values each fill column may have)
+   - number of columns ( number of total columns including the material_id and amount column)
+
+The output are two files one pipe ("|") separated file in this order
+
+Data file:
+
+     material_id | amount | [random_col]+
+
+Index file:
+
+     material_id | (row1,...,rown)
+
+The index file is an inverted index meaning that it is split into two
+parts, the first column identifies the material number and the second
+part identifies all rows where this material number is used.

@@ -1,3 +1,4 @@
+#include <boost/foreach.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -54,7 +55,7 @@ void Table::set(size_t col, size_t row, Table::value_type val)
 
 void Table::print()
 {
-	const size_t mw = 10;
+	const size_t mw = 7;
 	std::string tmp;
 
 	tmp = "-";
@@ -115,5 +116,35 @@ TablePtr TableFactory::loadFile(std::string fn, size_t w, size_t h, ReadingType 
 		++r;
 	}
 	
+	return p;
+}
+
+
+IndexPtr TableFactory::loadIndex(std::string fn)
+{
+	std::ifstream data_file(fn.c_str());
+	std::string line;
+
+	IndexPtr p(new InvertedIndex());
+
+	while( std::getline(data_file, line) )
+	{
+		std::vector<std::string> splitted = split(line, SEP_CHAR);
+		boost::trim(splitted[0]);
+
+		Table::value_type key = boost::lexical_cast<Table::value_type>(splitted[0]);
+
+		// The second part must be splitted again
+		std::vector<std::string> rows = split(splitted[1], ",");
+		BOOST_FOREACH(std::string r, rows)
+		{
+			boost::trim(r);
+			Table::value_type v = boost::lexical_cast<Table::value_type>(r);
+
+			p->add(key, v);
+		}
+
+	}
+
 	return p;
 }

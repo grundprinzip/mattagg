@@ -1,10 +1,10 @@
 export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/opt/local/include
 #export LIBRARY_PATH=/opt/local/lib
 
-sources = load.cpp main.cpp
-objects = load.o main.o
+sources = load.cpp index.cpp main.cpp
+objects = load.o index.o main.o
 
-build_flags = -O0 -g2
+build_flags = -O3 -g
 
 all: main
 
