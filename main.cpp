@@ -2,7 +2,7 @@
 #include <string>
 #include <boost/lexical_cast.hpp>
 
-#include "load.h"
+#include "table.h"
 #include "trace.h"
 
 
@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	
 	if (argc < 4)
 	{
-		std::cout << "usage:\tmain [filename] [width] [height] [idx]" << std::endl;
+		std::cout << "usage:\tmain [filename] [num_cols] [num_rows] [idx]" << std::endl;
 		return -1;
 	}
 	
@@ -20,12 +20,12 @@ int main(int argc, char** argv)
 	std::string fn(argv[1]);
 	std::cout << "Loading file: " << fn << std::endl;
 
-	size_t w = boost::lexical_cast<size_t>(argv[2]);
-	size_t h = boost::lexical_cast<size_t>(argv[3]);
+	size_t c = boost::lexical_cast<size_t>(argv[2]);
+	size_t r = boost::lexical_cast<size_t>(argv[3]);
 
 	// Measure the loading time
 	Tracer trc;
-	TablePtr table = TableFactory::loadFile(fn, w, h, ColRead);
+	TablePtr table = TableFactory::loadFile(fn, c, r, ColRead);
 	Tracer::res_t tmp = trc();
 
 	std::cout << "Loaded table in (us): " << tmp << std::endl;

@@ -2,14 +2,14 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "load.h"
+#include "table.h"
 #include <stdexcept>
 #include <fstream>
 #include <vector>
 #include <iostream>
 
 
-Table::Table(ReadingType t, size_t w, size_t h): rt(t), width(w), height(h)
+Table::Table(ReadingType t, size_t c, size_t r): rt(t), cols(c), rows(r)
 {
 }
 
@@ -28,10 +28,10 @@ Table::value_type Table::at(size_t col, size_t row)
 	switch(rt)
 	{
 	case ColRead:
-		return *(data + col * height + row);
+		return *(data + col * rows + row);
 		break;
 	case RowRead:
-		return *(data + row * width + col);
+		return *(data + row * cols + col);
 		break;
 	default:
 		throw std::runtime_error("Reading type not supported");
@@ -43,10 +43,10 @@ void Table::set(size_t col, size_t row, Table::value_type val)
 	switch(rt)
 	{
 	case ColRead:
-		*(data + col * height + row) = val;
+		*(data + col * rows + row) = val;
 		break;
 	case RowRead:
-		*(data + row * width + col) = val;
+		*(data + row * cols + col) = val;
 		break;
 	default:
 		throw std::runtime_error("Reading type not supported");
@@ -59,14 +59,14 @@ void Table::print()
 	std::string tmp;
 
 	tmp = "-";
-	tmp.resize((10 + 3) * width + 2, '-');
+	tmp.resize((10 + 3) * cols + 2, '-');
 	std::cout << tmp << std::endl;
 
-	for(size_t r=0; r < height; ++r)
+	for(size_t r=0; r < rows; ++r)
 	{
 		
 		std::cout << "| ";
-		for(size_t c=0; c < width; ++c)
+		for(size_t c=0; c < cols; ++c)
 		{
 			std::cout << " ";
 			tmp = boost::lexical_cast<std::string>(at(c,r));
@@ -76,7 +76,7 @@ void Table::print()
 
 		std::cout << std::endl;
 		tmp = "-";
-		tmp.resize((10 + 3) * width + 2, '-');
+		tmp.resize((10 + 3) * cols + 2, '-');
 		std::cout << tmp << std::endl;
 	}
 }

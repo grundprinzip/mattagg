@@ -31,7 +31,7 @@ class TableFactory
 {
 public:
 
-	static TablePtr loadFile(std::string fn, size_t w, size_t h, ReadingType rt=ColRead);
+	static TablePtr loadFile(std::string fn, size_t cols, size_t rows, ReadingType rt=ColRead);
 
 	static IndexPtr loadIndex(std::string fn);
 
@@ -75,15 +75,15 @@ public:
 
 private:
 
-	Table(ReadingType t, size_t width, size_t height);
+	Table(ReadingType t, size_t cols, size_t rows);
 
 	ReadingType rt;
 
 	ptr_type data;
 
-	size_t width;
+	size_t cols;
 
-	size_t height;
+	size_t rows;
 };
 
 
