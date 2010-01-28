@@ -8,7 +8,10 @@ InvertedIndex::InvertedIndex()
 void InvertedIndex::add(key k, row_num r)
 {
 	if (index[k].size() == 0)
+	{
 		index[k].push_back(r);
+		return;
+	}
 
 	
 
