@@ -15,7 +15,7 @@ void InvertedIndex::add(key k, row_num r)
 
 	
 
-	if (std::find(index[k].begin(), index[k].end(), r) != index[k].end())
+	if (std::find(index[k].begin(), index[k].end(), r) == index[k].end())
 	{
 		index[k].push_back(r);
 	}
